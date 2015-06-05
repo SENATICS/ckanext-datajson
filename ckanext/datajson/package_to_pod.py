@@ -88,7 +88,7 @@ def make_datajson_entry(package, plugin):
         ("accessURL", access_url),
         ("webService", get_api_resource(package).get("url", None)),
         ("format", extension_to_mime_type(get_primary_resource(package).get("format", None)) ),
-        ("license", extra(package, "License Agreement")),
+        ("license", package["license_title"]),
         ("spatial", extra(package, "Geographic Scope")),
         ("temporal", build_temporal(package)),
         ("issued", extra(package, "Date Released", datatype="iso8601")),

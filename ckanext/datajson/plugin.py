@@ -13,6 +13,7 @@ import ckan.model
 
 from package_to_pod import make_datajson_entry, get_facet_fields
 from pod_jsonld import dataset_to_jsonld
+from ckan.common import _
 
 class DataJsonPlugin(p.SingletonPlugin):
     p.implements(p.interfaces.IConfigurer)
@@ -134,11 +135,11 @@ class DataJsonController(BaseController):
             try:
                 body = json.load(urllib.urlopen(c.source_url))
             except IOError as e:
-                c.errors.append(("Error Loading File", ["The address could not be loaded: " + unicode(e)]))
+                c.errors.append((_("Error Loading File"), [_("The address could not be loaded: ") + unicode(e)]))
             except ValueError as e:
-                c.errors.append(("Invalid JSON", ["The file does not meet basic JSON syntax requirements: " + unicode(e) + ". Try using JSONLint.com."]))
+                c.errors.append((_("Invalid JSON"), [_("The file does not meet basic JSON syntax requirements: ") + unicode(e) + "." + _("Try using JSONLint.com.")]))
             except Exception as e:
-                c.errors.append(("Internal Error", ["Something bad happened while trying to load and parse the file: " + unicode(e)]))
+                c.errors.append((_("Internal Error"), [_("Something bad happened while trying to load and parse the file: ") + unicode(e)]))
                 
             if body:
                 try:
@@ -146,9 +147,9 @@ class DataJsonController(BaseController):
                     if type(body) == list:
                         c.number_of_records = len(body)
                 except Exception as e:
-                    c.errors.append(("Internal Error", ["Something bad happened: " + unicode(e)]))
+                    c.errors.append((_("Internal Error"), [_("Something bad happened: ") + unicode(e)]))
                 if len(c.errors) == 0:
-                    c.errors.append(("No Errors", ["Great job!"]))
+                    c.errors.append((_("No Errors"), [_("Great job!")]))
             
         return render('datajsonvalidator.html')
 
