@@ -18,7 +18,7 @@ from ckan.common import _
 class DataJsonPlugin(p.SingletonPlugin):
     p.implements(p.interfaces.IConfigurer)
     p.implements(p.interfaces.IRoutes, inherit=True)
-    p.implements(p.interfaces.IFacets)
+    #p.implements(p.interfaces.IFacets)
 
     # IConfigurer
     
@@ -64,17 +64,17 @@ class DataJsonPlugin(p.SingletonPlugin):
 
     # IFacets
     
-    def dataset_facets(self, facets, package_type):
+    #def dataset_facets(self, facets, package_type):
         # Add any facets specified in package_to_pod.get_facet_fields() to the top
         # of the facet list, and then put the CKAN default facets below that.
-        f = OrderedDict()
-        f.update(get_facet_fields())
-        f.update(facets)
-        return f
-    def group_facets(self, facets_dict, group_type, package_type):
-        return facets_dict
-    def organization_facets(self, facets_dict, organization_type, package_type):
-        return facets_dict
+        #f = OrderedDict()
+        #f.update(get_facet_fields())
+        #f.update(facets)
+        #return f
+    #def group_facets(self, facets_dict, group_type, package_type):
+        #return facets_dict
+    #def organization_facets(self, facets_dict, organization_type, package_type):
+        #return facets_dict
 
 class DataJsonController(BaseController):
     def generate_output(self, format):
